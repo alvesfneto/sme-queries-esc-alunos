@@ -1,0 +1,43 @@
+
+--RELAÇÃO DE ESCOLAS COM INDICAÇÃO DE PROPRIETARIO E DEPENDÊNCIA ADMINISTRATIVA
+DROP TABLE ##TBL_DIVULGACACO
+select 
+D.*,
+--tp_escola,
+--cd_escola,
+--A.tp_proprietario,
+B.dc_tipo_proprietario AS TIPO_PROPRIETARIO,
+--tp_forma_ocupacao_predio,
+--A.tp_dependencia_administrativa, 
+C.dc_tipo_dependencia_administrativa AS DEPENDENCIA_ADMINISTRATIVA
+
+INTO ##TBL_DIVULGACACO
+
+from D_ESCOLA A
+JOIN tipo_proprietario B ON A.tp_proprietario=B.tp_proprietario
+JOIN D_TIPO_DEPENDENCIA_ADMINISTRATIVA C ON A.tp_dependencia_administrativa=C.tp_dependencia_administrativa
+RIGHT JOIN VW_CADASTRO_ESCOLAS_DIVULGACAO_EOL D ON A.cd_escola=D.CODESC
+--SELECT * FROM ##TBL_DIVULGACACO
+----------------------------------------------------------------------------------------------------------------------
+DROP TABLE ##TBL_ESCOLAS_PROPRIEDADE_PREDIO
+SELECT 
+CODESC, 
+TIPOESC AS TIPO,
+NOMESC AS NOME,
+ENDERECO,
+NUMERO,
+BAIRRO,
+DRE,
+LATITUDE,
+LONGITUDE, CONCAT(LATITUDE,',',LONGITUDE) AS [COORDENADAS GEOGRÁFICAS], 
+TIPO_PROPRIETARIO
+INTO ##TBL_ESCOLAS_PROPRIEDADE_PREDIO
+FROM ##TBL_DIVULGACACO
+--SELECT * FROM ##TBL_ESCOLAS_PROPRIEDADE_PREDIO
+
+DROP TABLE ##TP_ESCOLA_DESCRICAO
+SELECT sg_tp_escola AS TIPO,dc_tipo_escola AS DESCRICAO INTO ##TP_ESCOLA_DESCRICAO FROM D_TIPO_ESCOLA
+WHERE tp_escola IN (1,2,3,4,10,11,12,13,16,17,18,28,30,31,32,33)
+--SELECT * FROM ##TP_ESCOLA_DESCRICAO
+
+--SELECT * FROM  D_TIPO_ESCOLA
