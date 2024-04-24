@@ -71,4 +71,5 @@ CREATE VIEW [dbo].[VW_ULTIMAS_ESCOLAS_CRIADAS] AS
 
 GO
 
+--select * from VW_ULTIMAS_ESCOLAS_CRIADAS where tipo = 'ESC.PART.' and cie is null  ORDER BY cd_escola desc
 
