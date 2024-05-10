@@ -1,0 +1,86 @@
+--DISTANCIA DE ALUNOS ATE 3 ANOS A ENDERECOS ESPSCÍFICOS
+
+/*
+Considerando inauguração de novo prédio, solicitamos, com urgência, arquivo de matriculados de 0 a 3 anos que moram até 1,2km, contendo nome, código eol, nome da unidade de matrícula atual, série atual, das unidades relacionadas abaixo:
+
+CEI Ziraldo Alves Pinto - Avenida General Penha Brasil, 3300 - Não existe esta escola. Escola nova?
+EMEI Prof. Arlindo Veiga dos Santos - Rua Felix Alves Pereira, 9 - EMEI existe. Será ampliada?
+
+#########   CONSIDEREI QUE ESTAS UNIDADES SERÃO CRIADAS/AMPLIADAS #########
+
+*/
+
+SELECT DISTINCT
+DRE,
+B.CD_ESCOLA,
+SG_TP_ESCOLA,
+NOMESC,
+SG_ETAPA,
+SG_SERIE_ENSINO,
+CD_TURMA_ESCOLA
+CD_ALUNO,
+A.NM_ALUNO,
+CONVERT(varchar,DT_NASCIMENTO_ALUNO,103) AS DT_NASC,
+DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE()) AS IDADE,
+'CEI Ziraldo Alves Pinto - Avenida General Penha Brasil, 3300' AS DESTINO_1,
+FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO*1000000 - (-23.449296573631976 * 1000000) ),2) +  
+                 POWER((LON_ALUNO*1000000  - (-46.68008860566761 * 1000000)),2)) / 10)/0.6) AS DIST_DESTINO
+into ##destino_cei_ziraldo
+FROM VW_ALUNOS_ENDERECOS A
+JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA
+JOIN SME_ALUNOS_DIARIO C ON A.COD_ALUNO=C.CD_ALUNO
+
+WHERE FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO*1000000 - (-23.449296573631976 * 1000000) ),2) +  
+                 POWER((LON_ALUNO*1000000  - (-46.68008860566761 * 1000000)),2)) / 10)/0.6)<=1200
+AND DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE())<=3
+
+--------------------------------------------------------------------------------------------------------------------
+drop table ##destino_emei_arlindo
+SELECT DISTINCT
+DRE,
+B.CD_ESCOLA,
+SG_TP_ESCOLA,
+NOMESC,
+SG_ETAPA,
+SG_SERIE_ENSINO,
+CD_TURMA_ESCOLA
+CD_ALUNO,
+A.NM_ALUNO,
+CONVERT(varchar,DT_NASCIMENTO_ALUNO,103) AS DT_NASC,
+DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE()) AS IDADE,
+'EMEI Prof. Arlindo Veiga dos Santos - Rua Felix Alves Pereira, 9' AS DESTINO,
+FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO*1000000 - (-23.4723577759314 * 1000000) ),2) +  
+                 POWER((LON_ALUNO*1000000  - (-46.669879290322946 * 1000000)),2)) / 10)/0.6) AS DIST_DESTINO
+into ##destino_emei_arlindo
+FROM VW_ALUNOS_ENDERECOS A
+JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA
+JOIN SME_ALUNOS_DIARIO C ON A.COD_ALUNO=C.CD_ALUNO
+
+WHERE FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO*1000000 - (-23.4723577759314 * 1000000) ),2) +  
+                 POWER((LON_ALUNO*1000000  - (-46.669879290322946 * 1000000)),2)) / 10)/0.6)<=1200
+AND DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE())<=3
+
+------------------------------------------------------------------------------------------------------------------
+/*select DISTINCT
+DRE,
+B.CD_ESCOLA,
+SG_TP_ESCOLA,
+NOMESC,
+SG_ETAPA,
+SG_SERIE_ENSINO,
+CD_TURMA_ESCOLA
+CD_ALUNO,
+A.NM_ALUNO,
+CONVERT(varchar,DT_NASCIMENTO_ALUNO,103) AS DT_NASC,
+DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE()) AS IDADE,
+DIST_ESCOLA
+ from VW_ALUNOS_ENDERECOS A
+JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA 
+JOIN SME_ALUNOS_DIARIO C ON A.COD_ALUNO=C.CD_ALUNO
+WHERE A.cd_escola=098957
+--AND DATEDIFF(YY,DT_NASCIMENTO_ALUNO,GETDATE())<=3
+
+*/
+
+
+
