@@ -24,7 +24,7 @@
 
 	LEFT JOIN (SELECT CD_UNIDADE_EDUCACAO,B.DRE
 			          FROM D_UNIDADE_EDUCACAO A
-					  JOIN tbl_dre B ON A.cd_unidade_administrativa_portal=B.CODLOC COLLATE SQL_Latin1_General_CP1_CI_AI) D ON A.cd_escola=D.cd_unidade_educacao
+					  JOIN tbl_dre B ON A.cd_unidade_administrativa_portal=B.CD_DRE COLLATE SQL_Latin1_General_CP1_CI_AI) D ON A.cd_escola=D.cd_unidade_educacao
 	
 	WHERE A.tp_escola IN(2,17) AND tp_ocorrencia_historica IN (1,2,3,9,18,27)  AND C.tp_situacao_unidade=1 
 	--GROUP BY CD_ESCOLA
@@ -48,7 +48,7 @@
 										GROUP BY A.cd_unidade_educacao, A.DT_ATUALIZACAO_TABELA,A.DT_PUBLICACAO_DOM) B ON A.cd_unidade_educacao = B.cd_unidade_educacao AND A.tp_ocorrencia_historica = B.tp_ocorrencia_historica
 													INNER JOIN (SELECT distinct cd_unidade_educacao,MIN(dt_publicacao_dom) AS dt_publicacao_dom
 															    FROM D_HISTORICO_UNIDADE 
-															    WHERE tp_ocorrencia_historica IN (1,2,3,9,18,27) and cd_unidade_educacao in (097705,400224,400227,400223,097691,400230,400152) 
+															    WHERE tp_ocorrencia_historica IN (1,2,3,9,18,27)-- and cd_unidade_educacao in (097705,400224,400227,400223,097691,400230,400152) 
 																GROUP BY cd_unidade_educacao,dt_publicacao_dom) C ON A.CD_UNIDADE_EDUCACAO=C.CD_UNIDADE_EDUCACAO-- AND A.dt_publicacao_dom=C.dt_publicacao_dom
 													
 							WHERE A.tp_ocorrencia_historica IN (1,2,3,9,18,27) 	--AND A.cd_unidade_educacao=	019230
@@ -68,28 +68,28 @@
 	--ORDER BY COUNT(*) DESC
 
 
-	AND A.cd_escola IN (097705,400224,400227,400223,097691,400230,400152) 
-	ORDER BY 1
+	--AND A.cd_escola IN (097705,400224,400227,400223,097691,400230,400152) 
+	--ORDER BY 1
 
 
-	SELECT * FROM D_HISTORICO_UNIDADE WHERE cd_unidade_educacao = 097705
-
-	SELECT * FROM D_TIPO_ESCOLA
+	--SELECT * FROM D_HISTORICO_UNIDADE WHERE cd_unidade_educacao = 097705
+	--
+	--SELECT * FROM D_TIPO_ESCOLA
 	
 	
 	
 	
-	SELECT 
-	CD_ESCOLA,
-	nr_ato,
-	dc_ato,
-	--CONVERT(INT,NR_ATO) AS NR_ATO,
-	MIN(dt_publicacao_dom) AS dt_publicacao_dom
-	FROM D_HISTORICO_UNIDADE A
-	JOIN D_ESCOLA B ON A.cd_unidade_educacao=B.cd_escola
-	WHERE tp_ocorrencia_historica = 1 /*IN (1,2,3,9,18,27)*/ and cd_unidade_educacao in (097705,400224,400227,400223,097691,400230,400152) 
-	GROUP BY cd_escola,dt_publicacao_dom, nr_ato, dc_ato
-	ORDER by 1
+	--SELECT 
+	--CD_ESCOLA,
+	--nr_ato,
+	--dc_ato,
+	----CONVERT(INT,NR_ATO) AS NR_ATO,
+	--MIN(dt_publicacao_dom) AS dt_publicacao_dom
+	--FROM D_HISTORICO_UNIDADE A
+	--JOIN D_ESCOLA B ON A.cd_unidade_educacao=B.cd_escola
+	--WHERE tp_ocorrencia_historica = 1 /*IN (1,2,3,9,18,27)*/ and cd_unidade_educacao in (097705,400224,400227,400223,097691,400230,400152) 
+	--GROUP BY cd_escola,dt_publicacao_dom, nr_ato, dc_ato
+	--ORDER by 1
 	
 	
 	
