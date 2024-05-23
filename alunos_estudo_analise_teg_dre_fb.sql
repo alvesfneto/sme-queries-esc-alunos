@@ -16,11 +16,12 @@ CEI REGGIO EMILIA - 308968
 EMEI ALEXANDRE GAMA - 091481
 EMEI JOSE CANAVO FILHO - 091472
 EMEF JARDIM DAMASCENO -019349
+CEI COMO NOSSOS PAIS - 306698
 */
 
---select cd_escola, nomesc, dre from SME_ESCOLA_DIARIO where NOMESC like '%JARDIM DAMASCENO%'
+--select cd_escola, nomesc, dre from SME_ESCOLA_DIARIO where NOMESC like '%como noss%'
 
-
+DROP TABLE ##alunos_estudo_analise_teg_dre_fb
 SELECT DISTINCT
 DRE,
 A.cd_escola,
@@ -59,4 +60,9 @@ JOIN SME_ALUNOS_DIARIO C ON A.COD_ALUNO=C.CD_ALUNO
 ,308968
 ,091481
 ,091472
-,019349) AND SG_ETAPA IS NOT NULL ORDER BY A.cd_escola
+,019349
+,308698) AND SG_ETAPA IS NOT NULL ORDER BY A.cd_escola
+
+--SELECT * FROM ##alunos_estudo_analise_teg_dre_fb WHERE cd_escola=308698
+
+
