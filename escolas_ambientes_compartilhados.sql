@@ -1,0 +1,20 @@
+
+--ESCOLAS COM AMBIENTES COMPARTILHADOS
+
+SELECT DISTINCT
+
+B.DRE,
+B.CD_ESCOLA,
+B.SG_TP_ESCOLA AS TP_ESC,
+B.NOMESC AS NM_ESCOLA,
+cd_unidade_educacao_compartilhada AS CD_ESC_COMP,
+B1.SG_TP_ESCOLA AS TP_ESC_COMP,
+B1.NOMESC AS NM_ESC_COMP,
+C.dc_tipo_ambiente AS AMBIENTE
+
+FROM D_AMBIENTE_ESCOLA A
+JOIN SME_ESCOLA_DIARIO B ON A.cd_escola=B.CD_ESCOLA
+JOIN SME_ESCOLA_DIARIO B1 ON A.cd_unidade_educacao_compartilhada=B1.CD_ESCOLA
+JOIN  M_TIPO_AMBIENTE C ON A.tp_ambiente=C.tp_ambiente
+ WHERE B.CD_SIT=1 AND cd_unidade_educacao_compartilhada IS NOT NULL -- AND A.tp_ambiente in(116,2,1,6,7,4,3)
+
