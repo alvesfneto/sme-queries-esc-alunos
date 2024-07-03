@@ -47,16 +47,3 @@ jOIN (SELECT
 WHERE ETAPA='ENS FUND9A' AND SERIE_ANO='1º ANO'
 --select * from ##alunos_fund_1_ano_com_responsaveis_enderecos_integral
 
-select * from ##alunos_fund_1_ano_com_responsaveis_enderecos A
-
-
-SELECT 
-A.CD_ALUNO,
-A.CD_TURMA_ESCOLA,
-B.CD_TIPO_TURNO,
-C.dc_tipo_turno
-
- FROM SME_ALUNOS_DIARIO A
-JOIN SME_CLASSES_DIARIO B ON A.CD_TURMA_ESCOLA=B.CD_TURMA_ESCOLA
-JOIN tipo_turno C ON B.CD_TIPO_TURNO=C.cd_tipo_turno
-WHERE B.CD_TIPO_TURNO=6 AND A.SG_ETAPA='ENS FUND9A' AND A.SG_SERIE_ENSINO='1º ANO'
