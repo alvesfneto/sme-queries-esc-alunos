@@ -497,6 +497,18 @@ IF EXISTS (SELECT * FROM Db_local.DBO.SYSOBJECTS WHERE NAME = 'D_TIPO_EXPERIENCI
 SELECT *,GETDATE() AS CRDATE INTO D_TIPO_EXPERIENCIA_PEDAGOGICA FROM DB_EDUCACAO_1_PRODAM.se1426_ss.[dbo].[TIPO_EXPERIENCIA_PEDAGOGICA]
 GO
 
+IF EXISTS 
+	(SELECT 'TRUE' FROM SYSOBJECTS WHERE NAME = 'D_tipo_dispositivo_comunicacao')
+DROP TABLE D_tipo_dispositivo_comunicacao
+SELECT *, GETDATE() AS CRDATE INTO D_tipo_dispositivo_comunicacao FROM DB_EDUCACAO_1_PRODAM.se1426_ss.[dbo].[tipo_dispositivo_comunicacao]
+GO
+
+IF EXISTS 
+	(SELECT 'TRUE' FROM SYSOBJECTS WHERE NAME = 'D_dispositivo_comunicacao_aluno')
+DROP TABLE D_dispositivo_comunicacao_aluno
+SELECT *, GETDATE() AS CRDATE INTO D_dispositivo_comunicacao_aluno FROM DB_EDUCACAO_1_PRODAM.se1426_ss.[dbo].[dispositivo_comunicacao_aluno] where dt_fim is null
+GO
+
 
 EXEC GERA_ALUNOS_DIARIO
 EXEC GERA_ESCOLAS_DIARIO
