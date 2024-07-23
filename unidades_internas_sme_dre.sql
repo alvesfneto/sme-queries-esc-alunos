@@ -73,7 +73,7 @@ AND TP_SITUACAO_UNIDADE=1 AND dc_tipo_unidade_educacao NOT IN ('INSTITUICAO', 'U
 
 --select * from ##UNIDADES_DIRETAS_E_SETORES
 
-select * from ##UNIDADES_DIRETAS_E_SETORES WHERE TP_DEPENDENCIA='CEU'
+--select * from ##UNIDADES_DIRETAS_E_SETORES WHERE TP_DEPENDENCIA='CEU'
 ---------------------------------------------------------------------------------------------
 --SELECT * INTO ##UNIDADES_DIRETAS_E_SETORES1 FROM  ##UNIDADES_DIRETAS_E_SETORES WHERE (REDE ='DIR' OR REDE IS NULL)
 
@@ -81,7 +81,9 @@ select * from ##UNIDADES_DIRETAS_E_SETORES WHERE TP_DEPENDENCIA='CEU'
 
 --select * from ##UNIDADES_DIRETAS_E_SETORES1
 
+SELECT * INTO ##predios_administrativos_dre_ceus FROM ##UNIDADES_DIRETAS_E_SETORES1 where tp_unidade='UNIDADE ADMINISTRATIVA'
 
+/*
 DROP TABLE ##emefs_andre
 SELECT 
 DRE,
@@ -116,4 +118,4 @@ DT_BASE
 
 from ##UNIDADES_DIRETAS_E_SETORES where nm_unidade_educacao like '%tres pontes%' order by TP_UNIDADE
 
-
+*/
