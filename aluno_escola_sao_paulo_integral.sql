@@ -79,7 +79,9 @@
 																	
 																	
 																	
---SELECT * FROM ##aluno_escola_sao_paulo_integral	
+--SELECT * FROM ##aluno_escola_sao_paulo_integral
+
+SELECT DISTINCT [DIRETORIA_REGIONAL],CD_UNIDADE_EDUCACAO,sg_tp_escola,nm_unidade_educacao FROM ##aluno_escola_sao_paulo_integral WHERE an_letivo='2024'
 
 drop table ##escolas_sp_integral_por_ano	
 SELECT 
