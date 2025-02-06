@@ -1,0 +1,293 @@
+
+
+
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_102024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_05_2024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_112024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_092024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_062024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_012024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_082024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+
+--------------------------------------------------------------------------------------------
+UNION 
+--------------------------------------------------------------------------------------------
+SELECT 
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+SUM(CASE WHEN MODAL='CRECHE' THEN MATRIC ELSE NULL END) AS MT_CRECHE,
+SUM(CASE WHEN MODAL='PRE' THEN MATRIC ELSE NULL END) AS MT_PRE,
+CONVERT(VARCHAR, A.[DATABASE],103) AS DT_BASE
+
+
+FROM [dbo].[turma_022024] A
+JOIN Db_local.DBO.SME_ESCOLA_DIARIO B ON A.CODLOC=B.CD_ESCOLA COLLATE Latin1_General_CI_AS
+
+
+ WHERE CODLOC IN (
+
+309788
+,308040
+,308367
+,308732
+,308884
+,308923
+,308924
+,309117
+,309241
+,400732)
+GROUP BY
+DRE,
+A.CODLOC,
+SG_TP_ESCOLA,
+NOMESC,
+[DATABASE]
+
+
+

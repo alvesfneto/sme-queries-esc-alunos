@@ -1,0 +1,188 @@
+/*Prezados, bom dia.
+
+Por gentileza, enviar o estudo ponto a ponto 
+
+dos endereços das crianças matriculadas na EMEI Patrícia Galvão - 091855 
+em relação as seguintes unidades:
+
+EMEI Alberto de Oliveira - 091839
+EMEI Ângelo Martino - 091847
+EMEI Alceu Maynard - 091898
+EMEI Armando de Arruda - 091871
+EMEI Ana Rosa de Araujo - 092410
+EMEI Antônio Figueiredo Amaral - 017736
+EMEI Feijó - 091821
+EMEI Gabriel Prestes - 091863
+EMEI Heitor Villa Lobos - 092401
+EMEI João Theodoro - 091880
+EMEI Monteiro Lobato - 090425
+EMEI São Bento - 019675
+
+
+CEI Bela Vista - 400316
+CEI Cantinho dos Tesouros - 400487
+CEI Içami Tiba - 400505
+
+
+Creche Betty Lafer - 306397
+Creche Jose Ho - 309771
+Creche Liberdade - 306409
+Creche Mãe Achiropita - 306740
+Creche Olga Lopes - 309035
+Creche Paula Maria - 308250
+Creche Quintal da Criança - 306729
+Creche Ruach - 309296
+Creche São Francisco de Assis - 306521
+
+EMEF CELSO LEITA - 094633
+EMEF DQ DE CAXIAS - 094625
+*/
+
+DROP TABLE ##alunos_origem
+SELECT
+CONCAT (A.cd_escola,' ',A.SG_TP_ESCOLA,' ',A.NOME_ESCOLA) AS ESCOLA_ORIGEM, 
+NOME_ALUNO AS 'NOME DO ALUNO',
+CONVERT(INT,COD_ALUNO)  AS CD_ALUNO,
+A.ETAPA,
+A.SERIE_ANO,
+CONCAT (UPPER (TP_LOGRADOURO),' ',ENDEREÇO) AS ENDEREÇO,
+A.NR AS NÚMERO,
+A.COMPL AS COMPLEMENTO,
+A.BAIRRO,
+DIST_ESCOLA,
+B.CD_ESCOLA AS COD_DESTINO,
+B.SG_TP_ESCOLA AS TP_DESTINO,
+B.NOMESC,
+--CONCAT(B.CD_ESCOLA,' ',B.SG_TP_ESCOLA,' ',NOMESC) AS NOVO_DESTINO,
+FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO * 1000000 - ( CD_COORDENADA_GEO_Y * 1000000) ),2) +  POWER((LON_ALUNO * 1000000  - (CD_COORDENADA_GEO_X * 1000000)),2)) / 10)/0.6) AS DISTANCIA
+
+--TEG AS 'USO DO TEG'
+INTO ##alunos_origem
+FROM VW_ENDERECOS_ALUNOS_COM_RESPONSAVEIS A, SME_ESCOLA_DIARIO B
+
+WHERE A.cd_escola=091855  
+
+AND B.CD_ESCOLA IN ( 
+091898
+,306740
+,091871
+,091880
+,017736
+,091863
+,019675
+,091847
+,092401
+,090425
+,091821
+,091839
+,092410
+,306729
+,306397
+,306409
+,306521
+,308250
+,309771
+,309296
+,400505
+,309035
+,400316
+,400487
+,094633
+,094625)
+
+
+
+--IN (10,11,12,18,28,31) 
+AND FLOOR(FLOOR(SQRT(POWER((LAT_ALUNO * 1000000 - ( CD_COORDENADA_GEO_Y * 1000000) ),2) +  POWER((LON_ALUNO * 1000000  - (CD_COORDENADA_GEO_X * 1000000)),2)) / 10)/0.6)<=3000
+--SELECT * FROM ##alunos_origem
+----------------------------------------------------------------------------------
+ 
+  
+ DROP TABLE ##alunos_origem10
+
+SELECT TOP 0 *
+
+             INTO ##alunos_origem10
+
+             FROM ##alunos_origem   
+
+CREATE INDEX INDEX_CD_ALUNO ON ##alunos_origem10 (CD_ALUNO)
+
+ --select * from ##alunos_origem10
+
+DROP TABLE ##alunos_origem_CD_ALUNO 
+
+SELECT DISTINCT CD_ALUNO INTO ##alunos_origem_CD_ALUNO  FROM ##alunos_origem 
+
+CREATE INDEX INDEX_CD_ALUNO ON ##alunos_origem_CD_ALUNO (CD_ALUNO)
+
+ --select * from ##alunos_origem_CD_ALUNO
+
+            
+
+/*2. LER ORIGEM DADOS PROCESSADOS*/
+
+    DECLARE @COUNT INT, @QTDEFILES INT
+
+    SET @COUNT = 1
+
+    SET @QTDEFILES = (SELECT COUNT(DISTINCT(CD_ALUNO)) FROM ##alunos_origem_CD_ALUNO)
+
+ 
+
+    WHILE @COUNT <= @QTDEFILES
+
+          BEGIN
+
+ 
+
+                    DECLARE @CD_ALUNO INT
+
+                    IF (SELECT MIN(CD_ALUNO) FROM ##alunos_origem_CD_ALUNO) > 0
+
+ 
+
+      
+
+                    SET @CD_ALUNO = (SELECT  MIN(CD_ALUNO) FROM ##alunos_origem_CD_ALUNO 
+
+                                                      WHERE CD_ALUNO > ISNULL((SELECT MAX(CD_ALUNO) FROM ##alunos_origem10 ),0))
+
+                           ELSE
+
+                           SET @CD_ALUNO = (SELECT  MIN(CD_ALUNO) FROM ##alunos_origem_CD_ALUNO )
+
+                          
+
+                          
+
+                    DROP TABLE ##alunos_origem_10 
+
+                    SELECT TOP 10 * INTO ##alunos_origem_10  FROM ##alunos_origem 
+
+                    WHERE CD_ALUNO = @CD_ALUNO
+
+                    ORDER BY CD_ALUNO, DISTANCIA; 
+
+ 
+
+                    DELETE A FROM ##alunos_origem A WHERE CD_ALUNO = (SELECT MAX(CD_ALUNO) FROM ##alunos_origem_10)
+
+                    DELETE A FROM ##alunos_origem_CD_ALUNO A WHERE CD_ALUNO = (SELECT MAX(CD_ALUNO) FROM ##alunos_origem_10 )
+
+                    --TAMBEM É POSSIVEL FAZER ATRAVES DE BULK INSERT --HA MODELO NA PASTA SCRIPT PRODAM
+
+                    --EXEC @SQL;
+
+ 
+
+                    INSERT  ##alunos_origem10  SELECT * FROM ##alunos_origem_10 
+
+                    --PRINT @NM_ARQUIVO_CSV
+
+                SET @COUNT = @COUNT + 1
+
+          END
+
+
+--SELECT * FROM ##alunos_origem10

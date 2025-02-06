@@ -9,7 +9,7 @@
 		--|	18					  |DATA DE INAUGURACAO DA ESCOLA|2007-05-25 14:38:08.000|		1   |		NULL	|		S				|
 		--|	27					  |CRIACAO						|2007-05-25 14:38:08.000|		1   |		NULL	|		S				|
 		--|---------------------------------------------------------------------------------------------------------------------------------|
-		
+		--SELECT * FROM D_TIPO_ESCOLA
 --==========================================================================================================
 --REDE DIRETA
 --==========================================================================================================
@@ -39,8 +39,8 @@ FROM D_HISTORICO_UNIDADE A
 JOIN SME_ESCOLA_DIARIO B ON A.cd_unidade_educacao=B.CD_ESCOLA
 JOIN tipo_ocorrencia_historica C ON A.tp_ocorrencia_historica=C.tp_ocorrencia_historica
 JOIN [tipo_situacao_unidade] D ON B.CD_SIT=D.tp_situacao_unidade
-WHERE A.tp_ocorrencia_historica IN (1,2) AND B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,28,31)
---SELECT * FROM ##ATOS_CRIACAO
+WHERE A.tp_ocorrencia_historica IN (1,2) AND B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,27,28,31,38)
+--SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA IN (400115,093947,400496,092126,091090)
 --------------------------------------------------------------------------------------------------------
 --LOCALIZA REGISTROS DUPLICADOS - TABELA ATOS_CRIACAO
 --------------------------------------------------------------------------------------------------------
@@ -53,46 +53,75 @@ GROUP BY
 CD_ESCOLA
 HAVING (COUNT (CD_ESCOLA)>1)
 ORDER BY 1
+
+/*SELECT * FROM ##ATOS_CRIACAO 
+WHERE CD_ESCOLA IN (
+
+019230
+,019249
+,019537
+,019714
+,019740
+,091901
+,094404
+,095583
+,097691
+,097705
+,400152
+,400223
+,400224
+,400227
+,400230
+,400296)
+ORDER BY CD_ESCOLA
+
+*/
 --------------------------------------------------------------------------------------------------------
 --CRIA TABELA ##ACERTOS (LISTA DE REGISTROS VÁLIDOS CONFORME REGRAS INDIVIDUAIS) 
 --------------------------------------------------------------------------------------------------------
 --DROP TABLE ##ACERTOS
 SELECT * INTO ##ACERTOS 
-FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097705' AND NM_CRIACAO ='COHAB CIDADE TIRADENTES  - UNIDADE IV'
+FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097705' AND NM_CRIACAO ='COHAB CIDADE TIRADENTES  - UNIDADE IV' -->
 UNION
 SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097691' AND NM_CRIACAO ='VILA PROGRESSO'
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019249' AND NM_CRIACAO ='JARDIM JOAO XXIII'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019249' AND NM_CRIACAO ='JARDIM JOAO XXIII'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '095583' AND NM_CRIACAO ='COHAB JARDIM SAPOPEMBA - UNID I'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '095583' AND NM_CRIACAO ='COHAB JARDIM SAPOPEMBA - UNID I'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019230' AND NM_CRIACAO ='VILA GERMAINE'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019230' AND NM_CRIACAO ='VILA GERMAINE'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '091901' AND tp_ato=1
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '091901' AND tp_ato=1-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '094404' AND tp_ato=1
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '094404' AND tp_ato=1-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097691' AND nr_ato ='21.537'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097691' AND nr_ato ='21.537'-->
 UNION
 SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '097705' AND nr_ato ='21.536'
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400152' AND nr_ato ='24.405'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400152' AND nr_ato ='24.405'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400223' AND nr_ato ='24.765'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400223' AND nr_ato ='24.765'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400224' AND nr_ato ='21.968'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400224' AND nr_ato ='21.968'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400227' AND nr_ato ='24.498'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400227' AND nr_ato ='24.498'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400230' AND nr_ato ='20.719'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400230' AND nr_ato ='20.719'-->
 UNION
-SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400296' AND nr_ato ='42195'
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '400296' AND nr_ato ='42195'-->
+UNION
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019537' AND TP_ATO=1
+UNION
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019714' AND TP_ATO=1
+UNION
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA = '019740' AND TP_ATO=1
 --SELECT * FROM ##ACERTOS
 -------------------------------------------------------------------------------------------------------------
 --EXCLUI DA TABELA ##ATOS_CRIACAO OS REGISTROS DUPLICADOS
 -------------------------------------------------------------------------------------------------------------
 DELETE FROM ##ATOS_CRIACAO
-WHERE CD_ESCOLA IN ('019230','019249','091901','094404','095583','097691','097705','400152','400223','400224','400227','400230','400296')
+WHERE CD_ESCOLA IN ('019230','019249','091901','094404','095583','097691','097705','400152','400223','400224','400227','400230','400296','019537','019714','019740')
 -------------------------------------------------------------------------------------------------------------
 --INCLUI TABELA ##ACERTOS NA TABELA ##ATOS_CRIACAO
 -------------------------------------------------------------------------------------------------------------
@@ -124,7 +153,7 @@ RIGHT JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA
 JOIN D_HISTORICO_UNIDADE C ON B.CD_ESCOLA=C.cd_unidade_educacao
 JOIN tipo_ocorrencia_historica D ON C.tp_ocorrencia_historica=D.tp_ocorrencia_historica
 JOIN [tipo_situacao_unidade] E ON B.CD_SIT=E.tp_situacao_unidade
-WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,28,31) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 9
+WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,27,28,31,38) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 9
 --SELECT * FROM ##ATO_9
 -------------------------------------------------------------------------------------------------------------
 --INCLUI TABELA ##ATO_9 NA TABELA ##ATOS_CRIACAO
@@ -158,7 +187,7 @@ RIGHT JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA
 JOIN D_HISTORICO_UNIDADE C ON B.CD_ESCOLA=C.cd_unidade_educacao
 JOIN tipo_ocorrencia_historica D ON C.tp_ocorrencia_historica=D.tp_ocorrencia_historica
 JOIN [tipo_situacao_unidade] E ON B.CD_SIT=E.tp_situacao_unidade
-WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,28,31) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 27
+WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,27,28,31,38) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 27
 --SELECT * FROM ##ATO_27
 -------------------------------------------------------------------------------------------------------------
 --INCLUI TABELA ##ATO_27 NA TABELA ##ATOS_CRIACAO
@@ -191,8 +220,47 @@ RIGHT JOIN SME_ESCOLA_DIARIO B ON A.CD_ESCOLA=B.CD_ESCOLA
 JOIN D_HISTORICO_UNIDADE C ON B.CD_ESCOLA=C.cd_unidade_educacao
 JOIN tipo_ocorrencia_historica D ON C.tp_ocorrencia_historica=D.tp_ocorrencia_historica
 JOIN [tipo_situacao_unidade] E ON B.CD_SIT=E.tp_situacao_unidade
-WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,28,31) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 18
+WHERE B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,27,28,31,38) AND A.CD_ESCOLA IS NULL AND C.tp_ocorrencia_historica  = 18
 --SELECT * FROM ##ATO_18
+/*SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA IN (
+094455
+,095117
+,095257
+,092835
+,094331
+,093530
+,093971
+,095311
+,093858
+,092070
+,093963
+,094064
+,094102
+,095478
+,090824
+,091006
+,092690
+,091723
+,094820
+,093408
+,095184
+,095346
+,090778
+,092541
+,093416
+,094994
+,095397
+,091171
+,094579
+,095141
+,092118
+,092576
+,093173
+,094854
+,094943
+,095133
+,400493)
+*/
 -------------------------------------------------------------------------------------------------------------
 --INCLUI TABELA ##ATO_18 NA TABELA ##ATOS_CRIACAO
 -------------------------------------------------------------------------------------------------------------
@@ -233,10 +301,15 @@ FROM D_HISTORICO_UNIDADE A
 JOIN SME_ESCOLA_DIARIO B ON A.cd_unidade_educacao=B.CD_ESCOLA
 JOIN tipo_ocorrencia_historica C ON A.tp_ocorrencia_historica=C.tp_ocorrencia_historica
 JOIN [tipo_situacao_unidade] D ON B.CD_SIT=D.tp_situacao_unidade
-WHERE A.TP_OCORRENCIA_HISTORICA = 7 AND B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,28,31,32,33) AND B.CD_ESCOLA IN (092584,094528,400008,400164,400171)
+WHERE A.TP_OCORRENCIA_HISTORICA = 7 AND B.TP_ESCOLA IN (1,2,3,4,10,13,14,16,17,18,23,25,27,28,31,38) AND B.CD_ESCOLA IN (092584,094528,400008,400164,400171)
 
+SELECT * FROM ##ATOS_CRIACAO WHERE CD_ESCOLA IN (092584,094528,400008,400164,400171)
 
 INSERT INTO SME_ESCOLAS_ATOS_CRIACAO SELECT * FROM ##ATOS_CRIACAO7
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------------------
  --INSERE OS CECI NA TABELA
 SELECT DISTINCT
@@ -277,6 +350,7 @@ CD_ESCOLA
 HAVING (COUNT (CD_ESCOLA)>1)
 ORDER BY 1
 
+SELECT * FROM SME_ESCOLAS_ATOS_CRIACAO
 /*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 
 /*

@@ -39,7 +39,7 @@ FROM VW_CADASTRO_ESCOLAS_DIVULGACAO_EOL A
 JOIN (SELECT DISTINCT
       cd_unidade_educacao, 
       B.dc_tipo_ocorrencia_historica,
-      MIN(dt_inicio_ocorrencia_unidade) AS DT_DENOMINACAO 
+      CASE WHEN A.tp_ocorrencia_historica=11 THEN MIN(A.dt_inicio_ocorrencia_unidade) ELSE NULL END  AS DT_DENOMINACAO 
       FROM D_HISTORICO_UNIDADE A
       JOIN tipo_ocorrencia_historica B ON A.tp_ocorrencia_historica=B.tp_ocorrencia_historica
       WHERE A.tp_ocorrencia_historica=11 AND 
